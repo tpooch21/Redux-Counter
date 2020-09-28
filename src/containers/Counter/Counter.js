@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
-import * as actionTypes from '../../store/actions';
-
+import * as actionCreators from '../../store/actions/actions';
 class Counter extends Component {
 
     render () {
+        console.log(this.props);
         return (
             <div>
                 <CounterOutput value={this.props.ctr} />
@@ -24,6 +24,12 @@ class Counter extends Component {
                        <li key={result.id} onClick={() => {this.props.onDeleteResult(result.id)}}>{result.value}</li>
                     ))}
                 </ul>
+                <button onClick={this.props.getNBATeams}>Get NBA Teams</button>
+                <ul>
+                    {this.props.nbaTeams.map(team => (
+                       <li key={team.id}>{`${team.city} ${team.name}`}</li>
+                    ))}
+                </ul>
             </div>
         );
     }
@@ -32,7 +38,8 @@ class Counter extends Component {
 const mapStateToProps = state => {
     return {
         ctr: state.ctr.counter,
-        storedResults: state.res.results
+        storedResults: state.res.results,
+        nbaTeams: state.res.teams
     };
 };
 
@@ -40,12 +47,13 @@ const mapStateToProps = state => {
 // When onIncrementCounter (the prop name) is called, the dispatch function will be called with the relevant action
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        onAdd: (value) => dispatch({type: actionTypes.ADD, value}),
-        onSubtract: (value) => dispatch({type: actionTypes.SUBTRACT, value}),
-        onStoreResult: (counter) => dispatch({type: actionTypes.STORE_RESULT, counter}),
-        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, id})
+        onIncrementCounter: () => dispatch(actionCreators.increment()),
+        onDecrementCounter: () => dispatch(actionCreators.decrement()),
+        onAdd: (value) => dispatch(actionCreators.add(value)),
+        onSubtract: (value) => dispatch(actionCreators.subtract(value)),
+        onStoreResult: (counter) => dispatch(actionCreators.storeResult(counter)),
+        onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id)),
+        getNBATeams: () => dispatch(actionCreators.getNBATeams())
     }
 };
 
