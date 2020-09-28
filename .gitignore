@@ -1,1 +1,4 @@
 node_modules
+
+# Hide API key
+src/api-config.js

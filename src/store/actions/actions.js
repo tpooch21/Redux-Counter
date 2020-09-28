@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_KEY } from '../../api-config.js';
 
 export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
@@ -13,7 +14,7 @@ const getNBASettings = {
   "headers":{
     "content-type":"application/octet-stream",
     "x-rapidapi-host":"free-nba.p.rapidapi.com",
-    "x-rapidapi-key":"e7aaf1b617msh586558079f533e6p1a7b9djsne2c69e38d431",
+    "x-rapidapi-key": API_KEY,
     "useQueryString":true
     },
   "params":{
